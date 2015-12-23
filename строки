@@ -1,0 +1,134 @@
+﻿#include<iostream>
+
+using namespace std;
+
+const int N = 256;
+
+bool IsAlphabet(char symbol)
+{
+	for(char ch = 'A'; ch <= 'Z'; ch++)
+		if ( symbol == ch ) return true;
+	for(char ch = 'a'; ch <= 'z'; ch++)
+		if ( symbol == ch ) return true;
+	return false;
+}
+
+char ToUpper(char symbol)
+{
+	if (symbol >= 'a' && symbol <= 'z')
+	{
+		return symbol -= 32;
+	}
+	return symbol;
+}
+
+int LengthString(char str[])
+{
+	int i = 0;
+	while(str[i])
+		i++;
+	return i;
+}
+
+bool IsSymbolVowel(char symbol)
+{
+	char vowel[] = "eyuioaEYUIOA";
+	int length = LengthString(vowel);
+	for(int i = 0; i < length; i++)
+	{
+		if ( symbol == vowel[i] )
+			return true;
+	}
+	return false;
+}
+
+int IndexOfString(char string[], char symbol)
+{
+	int index = -1;
+	for ( int i = 0; string[i]; i++ )
+	{
+		if ( symbol == string[i] ) 
+			index = i;
+	}
+	return index;
+}
+
+bool Compare(char str1[], char str2[])
+{
+	if (LengthString(str1) != LengthString(str2))
+	{
+		return false;
+	}
+	int n = LengthString(str1);
+	for (int i = 0; i < n; i++)
+	{
+		if (ToUpper(str1[i]) != ToUpper(str2[i]))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+void StringCopy(char s1[], char s2[])
+{
+	s1 = "";
+	for (int i = 0; i < LengthString(s2); i++)
+	{
+		//TODO
+	}
+}
+
+bool IsStringPolindrom(char s[])
+{
+	int l = LengthString(s);
+	for (int i = 0; i < l / 2; i++)
+	{
+		if (s[i] != s[l - i - 1])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+void ObtainArrayOfWords(char s[], char arr[][N], int& k)
+{
+	bool flag = false;
+	int   i = -1, j = 0;
+	//char word[N] = "";
+	k = 0;
+	while(s[++i])
+	{
+		//char currentSymbol = s[i];
+		if (IsAlphabet(s[i]))
+		{
+			flag = true;
+			//word[j] = currentSymbol;
+			arr[k][j] = s[i];
+			j++;
+			continue;
+		}
+
+		if ( flag )
+		{
+			// добавить логику
+			/*if (IsStringPolindrom(word))
+			{
+				StringCopy(arr[k],word);
+			}*/
+			flag = false;
+			k++;
+			j = 0;
+		}
+	}
+}
+
+void DisplayWords(char arr[][N], int n)
+{
+
+	for(int i = 0; i < n; i++)
+	{
+		cout << (i + 1) << ". " << arr[i] << endl;
+	}
+}
